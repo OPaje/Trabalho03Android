@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Trabalho03</string>
+    <string name="inserir_curso">Inserir Curso</string>
+    <string name="codigo_curso">Informe o código</string>
+    <string name="nome_curso">Informe o nome</string>
+    <string name="numero_alunos_curso">Número de Alunos</string>
+    <string name="nota_mec_curso">Nota no MEC</string>
+    <string name="btn_inserir_curso">Inserir</string>
+    <string name="buscar_curso">Buscar</string>
+    <string name="informe_cod_busca">Informe o código</string>
+    <string-array name="opcoesCRUD">
+        <item>Inserir Curso</item>
+        <item>Mostrar Cursos</item>
+        <item>Atualizar Cursos</item>
+        <item>Remover Cursos</item>
+        <item>Buscar Cursos</item>
+        <item>Mostrar curso com o maior número de alunos</item>
+        <item>Mostrar total de alunos da universidade</item>
+        <item>Mostrar curso com a menor nota no MEC</item>
+    </string-array>
+</resources>
