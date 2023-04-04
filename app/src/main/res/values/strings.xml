@@ -8,6 +8,8 @@
     <string name="btn_inserir_curso">Inserir</string>
     <string name="buscar_curso">Buscar</string>
     <string name="informe_cod_busca">Informe o código</string>
+    <string name="atualizar_curso">Atualizar Curso</string>
+    <string name="atualizar">Atualizar</string>
     <string-array name="opcoesCRUD">
         <item>Inserir Curso</item>
         <item>Mostrar Cursos</item>

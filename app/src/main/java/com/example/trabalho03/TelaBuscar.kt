@@ -25,7 +25,7 @@ class TelaBuscar : AppCompatActivity() {
 
                 if (lista != null) {
                     for (curso in lista){
-                        if(curso.codigo.equals(codigo)){
+                        if(curso.codigo == codigo){
                             binding.tvCursoBuscado.text = "${curso.toString()}"
 
                         }

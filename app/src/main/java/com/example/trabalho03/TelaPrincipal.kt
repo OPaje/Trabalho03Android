@@ -36,7 +36,7 @@ class TelaPrincipal : AppCompatActivity() {
 
                         if (curso != null) {
                             listaCursos.add(curso)
-                            Log.i("Teste", "Lista completa: $listaCursos")
+                            //Log.i("Teste", "Lista completa: $listaCursos")
                         }
                     }
                 }
@@ -46,13 +46,13 @@ class TelaPrincipal : AppCompatActivity() {
         binding.lvOpcoes.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val textoSelecionado = parent.getItemAtPosition(position)
-
                 if (textoSelecionado == "Inserir Curso") {
                     Intent(applicationContext, TelaInserir::class.java).let {
                         register.launch(it)
                     }
                 }else if(textoSelecionado.equals("Atualizar Cursos")){
                     Intent(applicationContext, TelaAtualizar::class.java).let {
+                        it.putParcelableArrayListExtra("333", listaCursos)
                         register.launch(it)
                     }
                 }else if(textoSelecionado.equals("Buscar Cursos")){
