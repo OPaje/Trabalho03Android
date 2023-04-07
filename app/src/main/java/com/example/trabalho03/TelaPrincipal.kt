@@ -3,7 +3,6 @@ package com.example.trabalho03
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -62,9 +61,19 @@ class TelaPrincipal : AppCompatActivity() {
                         this.startActivity(it)
                     }
                 }else if(textoSelecionado.equals("Mostrar curso com o maior número de alunos")){
-                    val maior = listaCursos.maxBy { it.nAlunos }
+                    val maiorNumeroAlunos : Curso = listaCursos.maxBy { it.nAlunos }
 
-                    Toast.makeText(applicationContext, "Maior número de alunos: ${maior.nome}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Maior número de alunos: ${maiorNumeroAlunos.nome}", Toast.LENGTH_LONG).show()
+
+                }else if(textoSelecionado.equals("Mostrar total de alunos da universidade")){
+                    val total : Int = listaCursos.sumOf { it.nAlunos }
+
+                    Toast.makeText(applicationContext, "Quantidade de Alunos: $total", Toast.LENGTH_LONG).show()
+
+                }else if(textoSelecionado.equals("Mostrar curso com a menor nota no MEC")){
+                    val menorNota : Curso = listaCursos.minBy { it.notaMec }
+
+                    Toast.makeText(applicationContext, "Menor Nota no Mec: ${menorNota.nome}| ${menorNota.notaMec}", Toast.LENGTH_LONG).show()
                 }
             }
 
