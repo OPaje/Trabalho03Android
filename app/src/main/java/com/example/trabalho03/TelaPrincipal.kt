@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.trabalho03.databinding.TelaPrincipalBinding
@@ -60,6 +61,10 @@ class TelaPrincipal : AppCompatActivity() {
                         it.putParcelableArrayListExtra("333", listaCursos)
                         this.startActivity(it)
                     }
+                }else if(textoSelecionado.equals("Mostrar curso com o maior número de alunos")){
+                    val maior = listaCursos.maxBy { it.nAlunos }
+
+                    Toast.makeText(applicationContext, "Maior número de alunos: ${maior.nome}", Toast.LENGTH_LONG).show()
                 }
             }
 

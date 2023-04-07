@@ -25,7 +25,7 @@ class TelaInserir : AppCompatActivity() {
                 setResult(RESULT_OK, this)
             }
 
-            Toast.makeText(applicationContext, "Curso Inserido com Sucesso", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "Curso Inserido com Sucesso", Toast.LENGTH_SHORT).show()
 
             finish()
 

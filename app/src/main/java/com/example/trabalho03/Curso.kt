@@ -8,8 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class Curso(
     val codigo: Int,
     val nome: String,
-    val nAlunos: Int,
-    val notaMec: Double
+    var nAlunos: Int,
+    var notaMec: Double
 ): Parcelable{
 
     override fun toString(): String {
