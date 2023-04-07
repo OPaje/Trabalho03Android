@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Trabalho03"
         tools:targetApi="31">
         <activity
+            android:name=".TelaMostrar"
+            android:exported="false" />
+        <activity
             android:name=".TelaRemover"
             android:exported="false" />
         <activity

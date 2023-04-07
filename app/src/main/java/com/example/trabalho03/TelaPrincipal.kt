@@ -50,6 +50,11 @@ class TelaPrincipal : AppCompatActivity() {
                     Intent(applicationContext, TelaInserir::class.java).let {
                         register.launch(it)
                     }
+                }else if(textoSelecionado.equals("Mostrar Cursos")){
+                    Intent(applicationContext, TelaMostrar::class.java).let {
+                        it.putParcelableArrayListExtra("777", listaCursos)
+                        this.startActivity(it)
+                    }
                 }else if(textoSelecionado.equals("Atualizar Cursos")){
                     Intent(applicationContext, TelaAtualizar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaCursos)

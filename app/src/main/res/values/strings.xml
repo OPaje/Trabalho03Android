@@ -10,6 +10,8 @@
     <string name="informe_cod_busca">Informe o código</string>
     <string name="atualizar_curso">Atualizar Curso</string>
     <string name="atualizar">Atualizar</string>
+    <string name="titulo_tela_mostrar">Tela Mostrar</string>
+    <string name="home_tela_mostrar">Home</string>
     <string-array name="opcoesCRUD">
         <item>Inserir Curso</item>
         <item>Mostrar Cursos</item>

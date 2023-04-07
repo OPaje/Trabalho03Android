@@ -13,6 +13,6 @@ data class Curso(
 ): Parcelable{
 
     override fun toString(): String {
-        return "Codigo = $codigo, Nome = $nome, Número de Alunos = $nAlunos, Nota no Mec = $notaMec"
+        return "Codigo = $codigo| Nome = $nome| Número de Alunos = $nAlunos| Nota no Mec = $notaMec"
     }
 }
