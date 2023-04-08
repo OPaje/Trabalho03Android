@@ -3,7 +3,6 @@ package com.example.trabalho03
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -42,7 +41,7 @@ class TelaPrincipal : AppCompatActivity() {
             }
         }
 
-        val register2 = registerForActivityResult(
+        val registerAtualiza = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
@@ -52,6 +51,24 @@ class TelaPrincipal : AppCompatActivity() {
                         if (curso != null) {
                             val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
                             listaCursos[indice] = curso
+                            adaptador.notifyDataSetChanged()
+                        }
+                    }
+                }
+            }
+        }
+
+        val registerRemover = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let {
+                    if (it.hasExtra("444")) {
+                        val curso : Curso? = it.getParcelableExtra("444")
+                        if (curso != null) {
+                            val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
+                            listaCursos.removeAt(indice)
+                            adaptador.notifyDataSetChanged()
                         }
                     }
                 }
@@ -105,12 +122,12 @@ class TelaPrincipal : AppCompatActivity() {
                 } else if (textoSelecionado.equals("Remover Cursos")) {
                     Intent(applicationContext, TelaRemover::class.java).let {
                         it.putParcelableArrayListExtra("333", listaCursos)
-                        register2.launch(it)
+                        registerRemover.launch(it)
                     }
                 } else if (textoSelecionado.equals("Atualizar Cursos")) {
                     Intent(applicationContext, TelaAtualizar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaCursos)
-                        register2.launch(it)
+                        registerAtualiza.launch(it)
                     }
                 }
             }

@@ -12,6 +12,7 @@
     <string name="atualizar">Atualizar</string>
     <string name="titulo_tela_mostrar">Tela Mostrar</string>
     <string name="home_tela_mostrar">Home</string>
+    <string name="titulo_tela_remover">Remover Curso</string>
     <string-array name="opcoesCRUD">
         <item>Inserir Curso</item>
         <item>Mostrar Cursos</item>
