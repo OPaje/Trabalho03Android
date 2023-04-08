@@ -15,12 +15,11 @@ class TelaMostrar : AppCompatActivity() {
         binding = TelaMostrarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         if(intent.hasExtra("777")){
             val lista : ArrayList<Curso> = intent.getParcelableArrayListExtra("777")!!
             val adaptador = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, lista)
             binding.lvTelaMostrar.adapter = adaptador
+
         }
 
 

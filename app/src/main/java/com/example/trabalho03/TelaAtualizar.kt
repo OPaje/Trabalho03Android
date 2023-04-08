@@ -24,26 +24,31 @@ class TelaAtualizar : AppCompatActivity() {
 
         if(intent.hasExtra("333")){
             lista.addAll(intent.getParcelableArrayListExtra("333")!!)
+            val adaptador = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, lista)
+            binding.lvTelaAtualizar.adapter = adaptador
         }
-
-
-        val adaptador = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, lista)
-        binding.lvTelaAtualizar.adapter = adaptador
-
 
         binding.lvTelaAtualizar.onItemClickListener = AdapterView.OnItemClickListener{parent, view, position, id ->
             val item : Curso = parent.getItemAtPosition(position) as Curso
-            cod = item.codigo
+            cod = lista.indexOfFirst { it.codigo == item.codigo }
+
         }
 
         binding.btnAtualizar.setOnClickListener {
-            lista.get(cod).nAlunos = binding.etAtualizaNAlunos.text.toString().toInt()
-            lista.get(cod).notaMec = binding.etAtualizaNotaMec.text.toString().toDouble()
+            Log.i("Teste", "Codigo Botão: $cod")
+            lista[cod].nAlunos = binding.etAtualizaNAlunos.text.toString().toInt()
+            lista[cod].notaMec = binding.etAtualizaNotaMec.text.toString().toDouble()
 
             Intent().apply {
-                putExtra("333", lista as Parcelable)
+                putExtra("444", lista[cod] as Parcelable)
+                setResult(RESULT_OK, this)
             }
+
+            Toast.makeText(applicationContext, "Curso Atualizado com Sucesso", Toast.LENGTH_SHORT).show()
+            finish()
         }
+
+
 
     }
 }

@@ -3,6 +3,7 @@ package com.example.trabalho03
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -33,54 +34,85 @@ class TelaPrincipal : AppCompatActivity() {
                 result.data?.let {
                     if (it.hasExtra("555")) {
                         val curso : Curso? = it.getParcelableExtra("555")
-
                         if (curso != null) {
                             listaCursos.add(curso)
-                            //Log.i("Teste", "Lista completa: $listaCursos")
                         }
                     }
                 }
             }
-
         }
+
+        val register2 = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.let {
+                    if (it.hasExtra("444")) {
+                        val curso : Curso? = it.getParcelableExtra("444")
+                        if (curso != null) {
+                            val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
+                            listaCursos[indice] = curso
+                        }
+                    }
+                }
+            }
+        }
+
         binding.lvOpcoes.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val textoSelecionado = parent.getItemAtPosition(position)
+
                 if (textoSelecionado == "Inserir Curso") {
                     Intent(applicationContext, TelaInserir::class.java).let {
                         register.launch(it)
                     }
-                }else if(textoSelecionado.equals("Mostrar Cursos")){
+                } else if (textoSelecionado.equals("Mostrar Cursos")) {
                     Intent(applicationContext, TelaMostrar::class.java).let {
                         it.putParcelableArrayListExtra("777", listaCursos)
                         this.startActivity(it)
                     }
-                }else if(textoSelecionado.equals("Atualizar Cursos")){
-                    Intent(applicationContext, TelaAtualizar::class.java).let {
-                        it.putParcelableArrayListExtra("333", listaCursos)
-                        register.launch(it)
-                    }
-                }else if(textoSelecionado.equals("Buscar Cursos")){
+                } else if (textoSelecionado.equals("Buscar Cursos")) {
                     Intent(applicationContext, TelaBuscar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaCursos)
                         this.startActivity(it)
                     }
-                }else if(textoSelecionado.equals("Mostrar curso com o maior número de alunos")){
-                    val maiorNumeroAlunos : Curso = listaCursos.maxBy { it.nAlunos }
+                } else if (textoSelecionado.equals("Mostrar curso com o maior número de alunos")) {
+                    val maiorNumeroAlunos: Curso = listaCursos.maxBy { it.nAlunos }
 
-                    Toast.makeText(applicationContext, "Maior número de alunos: ${maiorNumeroAlunos.nome}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Maior número de alunos: ${maiorNumeroAlunos.nome}",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-                }else if(textoSelecionado.equals("Mostrar total de alunos da universidade")){
-                    val total : Int = listaCursos.sumOf { it.nAlunos }
+                } else if (textoSelecionado.equals("Mostrar total de alunos da universidade")) {
+                    val total: Int = listaCursos.sumOf { it.nAlunos }
 
-                    Toast.makeText(applicationContext, "Quantidade de Alunos: $total", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Quantidade de Alunos: $total",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-                }else if(textoSelecionado.equals("Mostrar curso com a menor nota no MEC")){
-                    val menorNota : Curso = listaCursos.minBy { it.notaMec }
+                } else if (textoSelecionado.equals("Mostrar curso com a menor nota no MEC")) {
+                    val menorNota: Curso = listaCursos.minBy { it.notaMec }
 
-                    Toast.makeText(applicationContext, "Menor Nota no Mec: ${menorNota.nome}| ${menorNota.notaMec}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Menor Nota no Mec: ${menorNota.nome}| ${menorNota.notaMec}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (textoSelecionado.equals("Remover Cursos")) {
+                    Intent(applicationContext, TelaRemover::class.java).let {
+                        it.putParcelableArrayListExtra("333", listaCursos)
+                        register2.launch(it)
+                    }
+                } else if (textoSelecionado.equals("Atualizar Cursos")) {
+                    Intent(applicationContext, TelaAtualizar::class.java).let {
+                        it.putParcelableArrayListExtra("333", listaCursos)
+                        register2.launch(it)
+                    }
                 }
             }
-
     }
 }
