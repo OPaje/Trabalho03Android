@@ -51,7 +51,7 @@ class TelaPrincipal : AppCompatActivity() {
                         if (curso != null) {
                             val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
                             listaCursos[indice] = curso
-                            adaptador.notifyDataSetChanged()
+                            adaptador.notifyDataSetChanged() // não deu certo
                         }
                     }
                 }
@@ -75,7 +75,33 @@ class TelaPrincipal : AppCompatActivity() {
             }
         }
 
-        binding.lvOpcoes.onItemClickListener =
+        val opcoes = hashMapOf(
+            "Inserir Curso" to{register.launch(Intent(applicationContext, TelaInserir::class.java))},
+            "Mostrar Cursos" to{startActivity(Intent(applicationContext, TelaMostrar::class.java).apply { putParcelableArrayListExtra("777", listaCursos) })},
+            "Atualizar Cursos" to {registerAtualiza.launch(Intent(applicationContext, TelaAtualizar::class.java).apply { putParcelableArrayListExtra("333", listaCursos) })},
+            "Remover Cursos" to {registerRemover.launch(Intent(applicationContext, TelaRemover::class.java).apply { putParcelableArrayListExtra("333", listaCursos) })},
+            "Buscar Cursos" to {startActivity(Intent(applicationContext, TelaBuscar::class.java).apply { putParcelableArrayListExtra("333", listaCursos) })},
+            "Mostrar curso com o maior número de alunos" to {
+                val maiorNumeroAlunos : Curso = listaCursos.maxBy { it.nAlunos }
+                Toast.makeText(applicationContext, "Maior número de Alunos: ${maiorNumeroAlunos.nome}", Toast.LENGTH_LONG).show()
+            },
+            "Mostrar total de alunos da universidade" to {
+                val total : Int = listaCursos.sumOf { it.nAlunos }
+                Toast.makeText(applicationContext, "Quantidade de Alunos: $total", Toast.LENGTH_LONG).show()
+            },
+            "Mostrar curso com a menor nota no MEC" to {
+                val menorNota : Curso = listaCursos.minBy { it.notaMec }
+                Toast.makeText(applicationContext, "Menor Nota MEC: ${menorNota.nome} | ${menorNota.notaMec}", Toast.LENGTH_LONG).show()
+
+            }
+        )
+
+        binding.lvOpcoes.onItemClickListener = AdapterView.OnItemClickListener{parent, view, position, id ->
+            val textoSelecionado = parent.getItemAtPosition(position)
+            opcoes[textoSelecionado]?.invoke()
+        }
+
+        /*binding.lvOpcoes.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 val textoSelecionado = parent.getItemAtPosition(position)
 
@@ -130,6 +156,6 @@ class TelaPrincipal : AppCompatActivity() {
                         registerAtualiza.launch(it)
                     }
                 }
-            }
+            }*/
     }
 }
