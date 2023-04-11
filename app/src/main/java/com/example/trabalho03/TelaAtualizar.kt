@@ -39,6 +39,8 @@ class TelaAtualizar : AppCompatActivity() {
             lista[cod].nAlunos = binding.etAtualizaNAlunos.text.toString().toInt()
             lista[cod].notaMec = binding.etAtualizaNotaMec.text.toString().toDouble()
 
+            Log.i("Teste", "${lista[cod].toString()}")
+
             Intent().apply {
                 putExtra("444", lista[cod] as Parcelable)
                 setResult(RESULT_OK, this)

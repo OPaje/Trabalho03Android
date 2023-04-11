@@ -19,16 +19,13 @@ class TelaMostrar : AppCompatActivity() {
             val lista : ArrayList<Curso> = intent.getParcelableArrayListExtra("777")!!
             val adaptador = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, lista)
             binding.lvTelaMostrar.adapter = adaptador
-            
-
         }
 
 
         binding.btnHomeTelaMostrar.setOnClickListener {
-            Intent(applicationContext, TelaPrincipal::class.java).let {
-                this.startActivity(it)
+                finish()
             }
-        }
+
 
     }
 }
