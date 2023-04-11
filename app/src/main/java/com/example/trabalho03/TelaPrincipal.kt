@@ -37,37 +37,17 @@ class TelaPrincipal : AppCompatActivity() {
                         val curso : Curso? = it.getParcelableExtra("555")
                         if (curso != null) {
                             listaCursos.add(curso)
-                            adaptador.notifyDataSetChanged()
                         }
                     }
-                }
-            }
-        }
-
-        val registerAtualiza = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.let {
                     if (it.hasExtra("444")) {
                         val curso : Curso? = it.getParcelableExtra("444")
                         if (curso != null) {
                             val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
                             listaCursos[indice] = curso
-                             // não deu certo
                         }
                     }
-                }
-            }
-        }
-
-        val registerRemover = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                result.data?.let {
-                    if (it.hasExtra("444")) {
-                        val curso : Curso? = it.getParcelableExtra("444")
+                    if (it.hasExtra("888")) {
+                        val curso : Curso? = it.getParcelableExtra("888")
                         if (curso != null) {
                             val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
                             listaCursos.removeAt(indice)
@@ -77,62 +57,16 @@ class TelaPrincipal : AppCompatActivity() {
             }
         }
 
-        /*fun criaRegister(opcao: String, requestCode : Int) : ActivityResultLauncher<Intent>{
-            return registerForActivityResult(
-                ActivityResultContracts.StartActivityForResult()){result: ActivityResult ->
-                if(result.resultCode == RESULT_OK){
-                    result.data?.let {
-                        when (opcao){
-                            "Inserir Curso" -> {
-                                if(intent.hasExtra("555")){
-                                    val curso : Curso? = it.getParcelableExtra("555")
-                                    if (curso != null) {
-                                        listaCursos.add(curso)
-                                    }
-                                }
-                            }
-
-                            "Atualizar Cursos" -> {
-                                if(intent.hasExtra("444")){
-                                    val curso : Curso? = it.getParcelableExtra("444")
-                                    if(curso != null){
-                                        val indice = listaCursos.indexOfFirst{it.codigo == curso.codigo}
-                                        listaCursos[indice] = curso
-                                    }
-                                }
-                            }
-
-                            "Remover Cursos" -> {
-                                if (intent.hasExtra("444")){
-                                    val curso : Curso? = it.getParcelableExtra("444")
-                                    if(curso != null){
-                                        val indice = listaCursos.indexOfFirst{it.codigo == curso.codigo}
-                                        listaCursos.removeAt(indice)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        val register = criaRegister("Inserir Curso", 123)
-        val registerAtualiza = criaRegister("Atualizar Cursos", 333)
-        val registerRemover = criaRegister("Remover Cursos", 333)*/
-
         val opcoes = hashMapOf(
             "Inserir Curso" to {register.launch(Intent(applicationContext, TelaInserir::class.java))},
 
             "Mostrar Cursos" to {startActivity(Intent(applicationContext, TelaMostrar::class.java).let {
                 it.putParcelableArrayListExtra("777", listaCursos)})},
 
-            "Atualizar Cursos" to {registerAtualiza.launch(Intent(applicationContext, TelaAtualizar::class.java).let {
+            "Atualizar Cursos" to {register.launch(Intent(applicationContext, TelaAtualizar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaCursos) })},
 
-            "Remover Cursos" to {registerRemover.launch(Intent(applicationContext, TelaRemover::class.java).let {
+            "Remover Cursos" to {register.launch(Intent(applicationContext, TelaRemover::class.java).let {
                       it.putParcelableArrayListExtra("333", listaCursos) })},
 
             "Buscar Cursos" to {startActivity(Intent(applicationContext, TelaBuscar::class.java).let {

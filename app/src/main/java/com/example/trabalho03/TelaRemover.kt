@@ -30,7 +30,7 @@ class TelaRemover : AppCompatActivity() {
             val item = parent.getItemAtPosition(position)
 
             Intent().apply {
-                putExtra("444", item as Parcelable)
+                putExtra("888", item as Parcelable)
                 setResult(RESULT_OK, this)
             }
 

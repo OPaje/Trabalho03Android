@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -18,7 +17,7 @@ class TelaAtualizar : AppCompatActivity() {
         binding = TelaAtualizarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //val bundle : Bundle? = intent.extras
+
         var lista : ArrayList<Curso> = ArrayList()
         var cod : Int = 0
 
@@ -35,11 +34,8 @@ class TelaAtualizar : AppCompatActivity() {
         }
 
         binding.btnAtualizar.setOnClickListener {
-            Log.i("Teste", "Codigo Botão: $cod")
             lista[cod].nAlunos = binding.etAtualizaNAlunos.text.toString().toInt()
             lista[cod].notaMec = binding.etAtualizaNotaMec.text.toString().toDouble()
-
-            Log.i("Teste", "${lista[cod].toString()}")
 
             Intent().apply {
                 putExtra("444", lista[cod] as Parcelable)
