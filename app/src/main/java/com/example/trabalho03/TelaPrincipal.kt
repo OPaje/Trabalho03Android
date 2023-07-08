@@ -15,7 +15,7 @@ import com.example.trabalho03.databinding.TelaPrincipalBinding
 class TelaPrincipal : AppCompatActivity() {
 
     private lateinit var binding: TelaPrincipalBinding
-    private lateinit var listaCursos : ArrayList<Curso>
+    private lateinit var listaFazendas : ArrayList<Fazenda>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class TelaPrincipal : AppCompatActivity() {
         val adaptador = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, opcoesCrud)
         binding.lvOpcoes.adapter = adaptador
 
-        listaCursos = ArrayList()
+        listaFazendas = ArrayList()
 
         val register = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -34,23 +34,23 @@ class TelaPrincipal : AppCompatActivity() {
             if (result.resultCode == RESULT_OK) {
                 result.data?.let {
                     if (it.hasExtra("555")) {
-                        val curso : Curso? = it.getParcelableExtra("555")
-                        if (curso != null) {
-                            listaCursos.add(curso)
+                        val fazenda : Fazenda? = it.getParcelableExtra("555")
+                        if (fazenda != null) {
+                            listaFazendas.add(fazenda)
                         }
                     }
                     if (it.hasExtra("444")) {
-                        val curso : Curso? = it.getParcelableExtra("444")
-                        if (curso != null) {
-                            val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
-                            listaCursos[indice] = curso
+                        val fazenda : Fazenda? = it.getParcelableExtra("444")
+                        if (fazenda != null) {
+                            val indice = listaFazendas.indexOfFirst { fazenda.codigo == it.codigo }
+                            listaFazendas[indice] = fazenda
                         }
                     }
                     if (it.hasExtra("888")) {
-                        val curso : Curso? = it.getParcelableExtra("888")
-                        if (curso != null) {
-                            val indice = listaCursos.indexOfFirst { curso.codigo == it.codigo }
-                            listaCursos.removeAt(indice)
+                        val fazenda : Fazenda? = it.getParcelableExtra("888")
+                        if (fazenda != null) {
+                            val indice = listaFazendas.indexOfFirst { fazenda.codigo == it.codigo }
+                            listaFazendas.removeAt(indice)
                         }
                     }
                 }
@@ -61,28 +61,28 @@ class TelaPrincipal : AppCompatActivity() {
             "Inserir Curso" to {register.launch(Intent(applicationContext, TelaInserir::class.java))},
 
             "Mostrar Cursos" to {startActivity(Intent(applicationContext, TelaMostrar::class.java).let {
-                it.putParcelableArrayListExtra("777", listaCursos)})},
+                it.putParcelableArrayListExtra("777", listaFazendas)})},
 
             "Atualizar Cursos" to {register.launch(Intent(applicationContext, TelaAtualizar::class.java).let {
-                        it.putParcelableArrayListExtra("333", listaCursos) })},
+                        it.putParcelableArrayListExtra("333", listaFazendas) })},
 
             "Remover Cursos" to {register.launch(Intent(applicationContext, TelaRemover::class.java).let {
-                      it.putParcelableArrayListExtra("333", listaCursos) })},
+                      it.putParcelableArrayListExtra("333", listaFazendas) })},
 
             "Buscar Cursos" to {startActivity(Intent(applicationContext, TelaBuscar::class.java).let {
-                        it.putParcelableArrayListExtra("333", listaCursos) })},
+                        it.putParcelableArrayListExtra("333", listaFazendas) })},
 
             "Mostrar curso com o maior número de alunos" to {
-                val maiorNumeroAlunos : Curso = listaCursos.maxBy { it.nAlunos }
+                val maiorNumeroAlunos : Fazenda = listaFazendas.maxBy { it.valor }
                 Toast.makeText(applicationContext, "Maior número de Alunos: ${maiorNumeroAlunos.nome}", Toast.LENGTH_LONG).show()
             },
             "Mostrar total de alunos da universidade" to {
-                val total : Int = listaCursos.sumOf { it.nAlunos }
+                val total : Double = listaFazendas.sumOf { it.valor }
                 Toast.makeText(applicationContext, "Quantidade de Alunos: $total", Toast.LENGTH_LONG).show()
             },
             "Mostrar curso com a menor nota no MEC" to {
-                val menorNota : Curso = listaCursos.minBy { it.notaMec }
-                Toast.makeText(applicationContext, "Menor Nota MEC: ${menorNota.nome} | ${menorNota.notaMec}", Toast.LENGTH_LONG).show()
+                val menorNota : Fazenda = listaFazendas.minBy { it.valor }
+                Toast.makeText(applicationContext, "Menor Nota MEC: ${menorNota.nome} | ${menorNota.valor}", Toast.LENGTH_LONG).show()
 
             }
         )

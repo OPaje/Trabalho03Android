@@ -5,14 +5,14 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class Curso(
+data class Fazenda(
     val codigo: Int,
     val nome: String,
-    var nAlunos: Int,
-    var notaMec: Double
+    var valor: Double,
+    var qtdFuncionarios: Int
 ): Parcelable{
 
     override fun toString(): String {
-        return "Codigo = $codigo| Nome = $nome| Número de Alunos = $nAlunos| Nota no Mec = $notaMec"
+        return "Codigo = $codigo| Nome = $nome| Valor da propriedade = $valor| Quantidade de funcionários = $qtdFuncionarios"
     }
 }

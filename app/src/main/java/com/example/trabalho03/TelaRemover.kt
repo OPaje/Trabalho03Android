@@ -18,7 +18,7 @@ class TelaRemover : AppCompatActivity() {
         binding = TelaRemoverBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var lista : ArrayList<Curso> = ArrayList()
+        var lista : ArrayList<Fazenda> = ArrayList()
 
         if(intent.hasExtra("333")){
             lista.addAll(intent.getParcelableArrayListExtra("333")!!)

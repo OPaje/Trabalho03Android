@@ -21,7 +21,7 @@ class TelaBuscar : AppCompatActivity() {
 
             bundle?.apply {
 
-                val lista : ArrayList<Curso>? = intent.getParcelableArrayListExtra("333")!!
+                val lista : ArrayList<Fazenda>? = intent.getParcelableArrayListExtra("333")!!
 
                 if (lista != null) {
                     for (curso in lista){

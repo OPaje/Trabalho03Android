@@ -18,7 +18,7 @@ class TelaAtualizar : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        var lista : ArrayList<Curso> = ArrayList()
+        var lista : ArrayList<Fazenda> = ArrayList()
         var cod : Int = 0
 
         if(intent.hasExtra("333")){
@@ -28,14 +28,14 @@ class TelaAtualizar : AppCompatActivity() {
         }
 
         binding.lvTelaAtualizar.onItemClickListener = AdapterView.OnItemClickListener{parent, view, position, id ->
-            val item : Curso = parent.getItemAtPosition(position) as Curso
+            val item : Fazenda = parent.getItemAtPosition(position) as Fazenda
             cod = lista.indexOfFirst { it.codigo == item.codigo }
 
         }
 
         binding.btnAtualizar.setOnClickListener {
-            lista[cod].nAlunos = binding.etAtualizaNAlunos.text.toString().toInt()
-            lista[cod].notaMec = binding.etAtualizaNotaMec.text.toString().toDouble()
+            lista[cod].valor = binding.etAtualizaNAlunos.text.toString().toDouble()
+            lista[cod].qtdFuncionarios = binding.etAtualizaNotaMec.text.toString().toInt()
 
             Intent().apply {
                 putExtra("444", lista[cod] as Parcelable)
