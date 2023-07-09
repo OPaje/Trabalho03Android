@@ -11,9 +11,10 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.trabalho03.databinding.TelaPrincipalBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class TelaPrincipal : AppCompatActivity() {
-
+    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
     private lateinit var binding: TelaPrincipalBinding
     private lateinit var listaFazendas : ArrayList<Fazenda>
 
@@ -26,7 +27,7 @@ class TelaPrincipal : AppCompatActivity() {
         val adaptador = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, opcoesCrud)
         binding.lvOpcoes.adapter = adaptador
 
-        listaFazendas = ArrayList()
+        listaFazendas = ArrayList( )
 
         val register = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -58,32 +59,25 @@ class TelaPrincipal : AppCompatActivity() {
         }
 
         val opcoes = hashMapOf(
-            "Inserir Curso" to {register.launch(Intent(applicationContext, TelaInserir::class.java))},
+            "Inserir Fazenda" to {register.launch(Intent(applicationContext, TelaInserir::class.java))},
 
-            "Mostrar Cursos" to {startActivity(Intent(applicationContext, TelaMostrar::class.java).let {
+            "Mostrar Fazenda" to {startActivity(Intent(applicationContext, TelaMostrar::class.java).let {
                 it.putParcelableArrayListExtra("777", listaFazendas)})},
 
-            "Atualizar Cursos" to {register.launch(Intent(applicationContext, TelaAtualizar::class.java).let {
+            "Atualizar Fazenda" to {register.launch(Intent(applicationContext, TelaAtualizar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaFazendas) })},
 
-            "Remover Cursos" to {register.launch(Intent(applicationContext, TelaRemover::class.java).let {
+            "Remover Fazenda" to {register.launch(Intent(applicationContext, TelaRemover::class.java).let {
                       it.putParcelableArrayListExtra("333", listaFazendas) })},
 
-            "Buscar Cursos" to {startActivity(Intent(applicationContext, TelaBuscar::class.java).let {
+            "Buscar Fazenda" to {startActivity(Intent(applicationContext, TelaBuscar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaFazendas) })},
 
-            "Mostrar curso com o maior número de alunos" to {
-                val maiorNumeroAlunos : Fazenda = listaFazendas.maxBy { it.valor }
-                Toast.makeText(applicationContext, "Maior número de Alunos: ${maiorNumeroAlunos.nome}", Toast.LENGTH_LONG).show()
-            },
-            "Mostrar total de alunos da universidade" to {
-                val total : Double = listaFazendas.sumOf { it.valor }
-                Toast.makeText(applicationContext, "Quantidade de Alunos: $total", Toast.LENGTH_LONG).show()
-            },
-            "Mostrar curso com a menor nota no MEC" to {
-                val menorNota : Fazenda = listaFazendas.minBy { it.valor }
-                Toast.makeText(applicationContext, "Menor Nota MEC: ${menorNota.nome} | ${menorNota.valor}", Toast.LENGTH_LONG).show()
-
+            "Média dos valores das propriedadese" to {
+                var soma : Double = listaFazendas.sumOf { it.valor }
+                var media = soma/listaFazendas.size
+                println("Teste: ${media}")
+                Toast.makeText(applicationContext, "Média dos valores das propriedades: $media", Toast.LENGTH_LONG).show()
             }
         )
 
@@ -92,4 +86,23 @@ class TelaPrincipal : AppCompatActivity() {
             opcoes[textoSelecionado]?.invoke()
         }
     }
+
+    private fun carregarFazendas() :ArrayList<Fazenda>{
+        val fazendas = ArrayList<Fazenda>()
+        firestore.collection("fazendas")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
+                        val fazenda = document.toObject(Fazenda::class.java)
+                        fazendas.add(fazenda)
+                    }
+
+                } else {
+                    println("Erro ao carregar fazendas: ${task.exception}")
+                }
+            }
+        return fazendas
+    }
 }
+

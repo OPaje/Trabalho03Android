@@ -34,7 +34,7 @@ class TelaRemover : AppCompatActivity() {
                 setResult(RESULT_OK, this)
             }
 
-            Toast.makeText(applicationContext, "Curso Removido com Sucesso", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Fazenda Removida com Sucesso", Toast.LENGTH_SHORT).show()
 
             finish()
         }

@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import com.example.trabalho03.databinding.TelaMostrarBinding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class TelaMostrar : AppCompatActivity() {
 
     lateinit var binding: TelaMostrarBinding
+    private val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,11 +23,11 @@ class TelaMostrar : AppCompatActivity() {
             binding.lvTelaMostrar.adapter = adaptador
         }
 
-
         binding.btnHomeTelaMostrar.setOnClickListener {
                 finish()
-            }
-
+        }
 
     }
+
+
 }

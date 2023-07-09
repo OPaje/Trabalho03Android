@@ -10,7 +10,7 @@
         android:id="@+id/titulo_tela_busca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Buscar Curso"
+        android:text="Buscar Fazenda"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/et_pega_codigo"
@@ -22,8 +22,8 @@
 
     <EditText
         android:id="@+id/et_pega_codigo"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="254dp"
+        android:layout_height="46dp"
         android:ems="10"
         android:hint="@string/informe_cod_busca"
         android:inputType="textPersonName"

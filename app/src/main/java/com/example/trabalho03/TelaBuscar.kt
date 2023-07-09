@@ -24,9 +24,9 @@ class TelaBuscar : AppCompatActivity() {
                 val lista : ArrayList<Fazenda>? = intent.getParcelableArrayListExtra("333")!!
 
                 if (lista != null) {
-                    for (curso in lista){
-                        if(curso.codigo == codigo){
-                            binding.tvCursoBuscado.text = "${curso.toString()}"
+                    for (fazenda in lista){
+                        if(fazenda.codigo == codigo ){
+                            binding.tvCursoBuscado.text = "${fazenda.toString()}"
 
                         }
                     }
