@@ -73,10 +73,10 @@ class TelaPrincipal : AppCompatActivity() {
             "Buscar Fazenda" to {startActivity(Intent(applicationContext, TelaBuscar::class.java).let {
                         it.putParcelableArrayListExtra("333", listaFazendas) })},
 
-            "Média dos valores das propriedadese" to {
+            "Média dos valores das propriedades" to {
                 var soma : Double = listaFazendas.sumOf { it.valor }
                 var media = soma/listaFazendas.size
-                println("Teste: ${media}")
+                Log.d("TAG", "$media")
                 Toast.makeText(applicationContext, "Média dos valores das propriedades: $media", Toast.LENGTH_LONG).show()
             }
         )
